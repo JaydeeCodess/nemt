@@ -1,3 +1,55 @@
+// ===== UNIVERSAL FORM LOADING BUTTON HANDLER =====
+document.addEventListener('DOMContentLoaded', function() {
+  function setLoading(btn, loadingText) {
+    if (!btn) return;
+    btn.dataset.originalText = btn.innerHTML;
+    btn.classList.add('loading-btn');
+    btn.innerHTML = `<span class="spinner"></span>${loadingText || 'Submitting...'}`;
+    btn.disabled = true;
+  }
+  function unsetLoading(btn) {
+    if (!btn) return;
+    btn.classList.remove('loading-btn');
+    btn.innerHTML = btn.dataset.originalText || btn.innerText;
+    btn.disabled = false;
+  }
+
+  // Contact Form
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      const btn = contactForm.querySelector('button[type="submit"]');
+      setLoading(btn, 'Sending...');
+    });
+  }
+  // Booking Form
+  const bookingForm = document.getElementById('bookingForm');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', function(e) {
+      const btn = bookingForm.querySelector('button[type="submit"]');
+      setLoading(btn, 'Booking...');
+    });
+  }
+  // Careers/Apply Form
+  const applyForm = document.getElementById('applyForm');
+  if (applyForm) {
+    applyForm.addEventListener('submit', function(e) {
+      const btn = applyForm.querySelector('button[type="submit"]');
+      setLoading(btn, 'Submitting...');
+    });
+  }
+
+  // Optionally, unset loading after a delay (simulate async)
+  // Remove or adjust this in production to match real async response
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      setTimeout(() => {
+        const btn = form.querySelector('button[type="submit"]');
+        unsetLoading(btn);
+      }, 2200); // Simulate 2.2s network delay
+    });
+  });
+});
 // ===== MOBILE NAVIGATION TOGGLE =====
 document.addEventListener('DOMContentLoaded', function() {
   const navToggle = document.querySelector('.nav-toggle');
